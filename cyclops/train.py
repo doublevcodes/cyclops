@@ -3,11 +3,11 @@ import pickle
 
 import face_recognition
 
-from cyclops import DEFAULT_ENCODINGS_PATH
+from cyclops import DEFAULT_ENCODINGS_PATH, ModelChoice
 
 def encode(
-        training_dir,
-        model,
+        training_dir: Path,
+        model: ModelChoice,
         encodings_location: Path = DEFAULT_ENCODINGS_PATH,
 ) -> None:
     
@@ -15,21 +15,23 @@ def encode(
     encodings = []
     
     for filepath in training_dir.glob("*/*"):
+        print(filepath.as_posix())
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
 
         face_locations = face_recognition.face_locations(image, model=model)
+
+        if len(face_locations) > 1:
+            # TODO: implement an error because there's more than one face
+            continue
+
         face_encodings = face_recognition.face_encodings(image, face_locations)
+        face_encoding = face_encodings[0]
 
-        if len(face_encodings) > 1:
-            # Error due to multiple faces in the image.
-            pass
+        names.append(name)
+        encodings.append(face_encoding)
 
-        for encoding in face_encodings:
-            names.append(name)
-            encodings.append(encoding)
-
-        encodings = {"names": names, "encodings": encodings}
+    name_encodings = {"names": names, "encodings": encodings}
     
     with encodings_location.open(mode="wb") as f:
-        pickle.dump(encodings, f)
+        pickle.dump(name_encodings, f)
