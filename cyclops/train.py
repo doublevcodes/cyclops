@@ -26,6 +26,9 @@ def encode(
             continue
 
         face_encodings = face_recognition.face_encodings(image, face_locations)
+        if len(face_encodings) == 0:  # A face was unable to be recognised in the training image
+            continue
+
         face_encoding = face_encodings[0]
 
         names.append(name)
