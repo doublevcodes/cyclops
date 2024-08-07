@@ -97,10 +97,10 @@ def _recognize_face(unknown_encoding, loaded_encodings):
         return votes.most_common(1)[0][0]
 
 def validate(model: str = "hog"):
-    for filepath in Path("validation").rglob("*"):
+    for filepath in Path("val").rglob("*"):
         if filepath.is_file():
             recognize_faces(
                 image_location=str(filepath.absolute()), model=model
             )
 
-validate()
+recognize_faces("vivaan.webp")
