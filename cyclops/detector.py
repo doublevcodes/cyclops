@@ -103,4 +103,4 @@ def validate(model: str = "hog"):
                 image_location=str(filepath.absolute()), model=model
             )
 
-recognize_faces("vivaan.webp")
+validate()
