@@ -29,9 +29,5 @@ def recognise(
 ):
     recognise_faces(path, model)
 
-@cyclops.command()
-def who():
-    print("Me")
-
 if __name__ == "__main__":
     cyclops()
