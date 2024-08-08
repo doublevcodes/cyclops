@@ -1,4 +1,5 @@
 from collections import Counter
+import logging
 from pathlib import Path
 import pickle
 from PIL import Image, ImageDraw
@@ -40,6 +41,7 @@ def recognise_faces(
     model: str = "hog",
     encodings_location: Path = DEFAULT_ENCODINGS_PATH,
 ) -> None:
+    logging.warning("Called recognise_faces")
     with encodings_location.open(mode="rb") as f:
         loaded_encodings = pickle.load(f)
 
