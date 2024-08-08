@@ -6,7 +6,7 @@ Based off the Real Python Recognising Faces tutorial but with a lot more complex
 ## Checklist
 
 - [X] Implement basic facial recognition
-- [ ] Make it have a CLI interface
+- [X] Make it have a CLI interface
 - [ ] Make it work for videos
 - [ ] Make it a hostable API
 - [ ] Make an Alexa Skill so it can tell me who's at the door??

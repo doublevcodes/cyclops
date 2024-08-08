@@ -24,7 +24,7 @@ cyclops = typer.Typer(
 
 
 @cyclops.command(
-        help="Train cyclops on a set of pre-sorted images",
+    help="Train cyclops on a set of pre-sorted images",
 )
 def train(
     path: Annotated[Path, typer.Argument(exists=True)],
@@ -34,7 +34,9 @@ def train(
     encode(path, model, debug)
 
 
-@cyclops.command()
+@cyclops.command(
+    help="Identify faces in a media file"
+)
 def recognise(
     path: Annotated[Path, typer.Argument(exists=True, readable=True)],
     model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
