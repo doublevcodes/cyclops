@@ -23,7 +23,9 @@ cyclops = typer.Typer(
 )
 
 
-@cyclops.command()
+@cyclops.command(
+        help="Train cyclops on a set of pre-sorted images",
+)
 def train(
     path: Annotated[Path, typer.Argument(exists=True)],
     model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
@@ -36,9 +38,10 @@ def train(
 def recognise(
     path: Annotated[Path, typer.Argument(exists=True, readable=True)],
     model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
+    text: Optional[Annotated[bool, typer.Option()]] = False,
     debug: Optional[Annotated[bool, typer.Option()]] = False,
 ):
-    recognise_faces(path, model)
+    recognise_faces(path, model, text, debug)
 
 
 if __name__ == "__main__":
