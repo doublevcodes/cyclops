@@ -1,5 +1,3 @@
-import numpy as np
-from pathlib import Path
 from PIL import Image, ImageDraw
 
 from cyclops import BOUNDING_BOX_COLOR

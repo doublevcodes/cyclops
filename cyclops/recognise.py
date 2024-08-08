@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 import face_recognition
 
 from cyclops import DEFAULT_ENCODINGS_PATH, BOUNDING_BOX_COLOR, ModelChoice
-from cyclops.img import overlay
+from cyclops.media.img import overlay
 
 
 logger = logging.getLogger(__name__)
