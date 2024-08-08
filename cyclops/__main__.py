@@ -11,11 +11,11 @@ from cyclops.recognise import recognise_faces
 from cyclops.train import encode
 
 
-logging.basicConfig(handlers=[RichHandler()])
-
-
-def debug_callback():
-    logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s | %(name)s | %(message)s",
+    handlers=[RichHandler()],
+)
 
 
 cyclops = typer.Typer(
@@ -27,16 +27,16 @@ cyclops = typer.Typer(
 def train(
     path: Annotated[Path, typer.Argument(exists=True)],
     model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
-    debug: Optional[Annotated[bool, typer.Option(callback=debug_callback)]] = False,
+    debug: Optional[Annotated[bool, typer.Option()]] = False,
 ):
-    encode(path, model)
+    encode(path, model, debug)
 
 
 @cyclops.command()
 def recognise(
     path: Annotated[Path, typer.Argument(exists=True, readable=True)],
     model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
-    debug: Optional[Annotated[bool, typer.Option(callback=debug_callback)]] = False,
+    debug: Optional[Annotated[bool, typer.Option()]] = False,
 ):
     recognise_faces(path, model)
 
