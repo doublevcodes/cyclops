@@ -15,19 +15,22 @@ cyclops = typer.Typer(
     no_args_is_help=True,
 )
 
+
 @cyclops.command()
 def train(
     path: Annotated[Path, typer.Argument(exists=True)],
-    model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG
+    model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
 ):
     encode(path, model)
+
 
 @cyclops.command()
 def recognise(
     path: Annotated[Path, typer.Argument(exists=True, readable=True)],
-    model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG
+    model: Optional[Annotated[ModelChoice, typer.Option()]] = ModelChoice.HOG,
 ):
     recognise_faces(path, model)
+
 
 if __name__ == "__main__":
     cyclops()

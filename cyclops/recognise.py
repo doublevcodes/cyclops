@@ -7,12 +7,11 @@ import face_recognition
 
 from cyclops import DEFAULT_ENCODINGS_PATH, BOUNDING_BOX_COLOR
 
+
 def _display_face(draw, bounding_box, name):
     top, right, bottom, left = bounding_box
     draw.rectangle(((left, top), (right, bottom)), outline=BOUNDING_BOX_COLOR)
-    text_left, text_top, text_right, text_bottom = draw.textbbox(
-        (left, bottom), name
-    )
+    text_left, text_top, text_right, text_bottom = draw.textbbox((left, bottom), name)
     draw.rectangle(
         ((text_left, text_top), (text_right, text_bottom)),
         fill="blue",
@@ -24,17 +23,17 @@ def _display_face(draw, bounding_box, name):
         fill="white",
     )
 
+
 def _recognise_face(unknown_encoding, loaded_encodings):
     boolean_matches = face_recognition.compare_faces(
         loaded_encodings["encodings"], unknown_encoding
     )
     votes = Counter(
-        name
-        for match, name in zip(boolean_matches, loaded_encodings["names"])
-        if match
+        name for match, name in zip(boolean_matches, loaded_encodings["names"]) if match
     )
     if votes:
         return votes.most_common(1)[0][0]
+
 
 def recognise_faces(
     image_location: str,
@@ -45,9 +44,7 @@ def recognise_faces(
         loaded_encodings = pickle.load(f)
 
     input_image = face_recognition.load_image_file(image_location)
-    input_face_locations = face_recognition.face_locations(
-        input_image, model=model
-    )
+    input_face_locations = face_recognition.face_locations(input_image, model=model)
     input_face_encodings = face_recognition.face_encodings(
         input_image, input_face_locations
     )
